@@ -1,0 +1,29 @@
+{
+  "name": "blogilista",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aarekr/Blogilista.git"
+  },
+  "author": "Aare",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aarekr/Blogilista/issues"
+  },
+  "homepage": "https://github.com/aarekr/Blogilista#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "mongoose": "^6.6.7"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
