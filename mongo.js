@@ -13,10 +13,10 @@ const url =
 mongoose.connect(url)
 
 const blogSchema = mongoose.Schema({
-    title: String,
-    author: String,
-    url: String,
-    likes: Number
+  title: String,
+  author: String,
+  url: String,
+  likes: Number
 })
 
 const Blog = mongoose.model('Blog', blogSchema)
@@ -35,8 +35,8 @@ blog.save().then(result => {
 */
 
 Blog.find({}).then(result => {
-    result.forEach(blog => {
-        console.log("Blog.find, blog:", blog)
-    })
-    mongoose.connection.close()
+  result.forEach(blog => {
+    console.log('Blog.find, blog:', blog)
+  })
+  mongoose.connection.close()
 })

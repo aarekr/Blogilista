@@ -19,9 +19,9 @@ blogsRouter.get('/:id', (req, res, next) => {
     .catch(error => next(error))
 })
 
-blogsRouter.post('/', (req, res) => {
+blogsRouter.post('/', (req, res, next) => {
   const body = req.body
-  console.log("postin body:", body)
+  console.log('postin body:', body)
   if (!body.author) {
     return res.status(400).json({ error: 'author missing' })
   }
@@ -34,12 +34,12 @@ blogsRouter.post('/', (req, res) => {
     url: 'http://blogi',
     likes: 5,
   })
-  console.log("blog:", blog)
+  console.log('blog:', blog)
   blog.save().then(savedBlog => {
     console.log('blog saved!')
     res.json(savedBlog)
   })
-  .catch(error => next(error))
+    .catch(error => next(error))
 })
 
 blogsRouter.delete('/:id', (req, res, next) => {
