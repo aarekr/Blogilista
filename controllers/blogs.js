@@ -18,7 +18,7 @@ blogsRouter.get('/:id', (req, res, next) => {
     .catch(error => next(error))
 })
 
-blogsRouter.post('/', async (req, res, next) => {
+blogsRouter.post('/', async (req, res) => {
   const body = req.body
   console.log('postin body:', body)
   if (!body.author) {
@@ -40,20 +40,13 @@ blogsRouter.post('/', async (req, res, next) => {
     likes: body.likes,
   })
   console.log('blog:', blog)
-  try{
-    const savedBlog = await blog.save()
-    res.status(201).json(savedBlog)
-  } catch(exception) {
-    next(exception)
-  }
+  const savedBlog = await blog.save()
+  res.status(201).json(savedBlog)
 })
 
-blogsRouter.delete('/:id', (req, res, next) => {
-  Blog.findByIdAndRemove(req.params.id)
-    .then(() => {
-      res.status(204).end()
-    })
-    .catch(error => next(error))
+blogsRouter.delete('/:id', async (req, res) => {
+  await Blog.findByIdAndRemove(req.params.id)
+  res.status(204).end()
 })
 
 module.exports = blogsRouter
