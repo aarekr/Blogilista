@@ -67,8 +67,44 @@ test('Dijkstra`s blog is included', async () => {
 test('there is a blog about React', async () => {
   const response = await api.get('/api/blogs')
   const titles = response.body.map(r => r.title)
-  expect(titles).toContainEqual('React patterns')})
+  expect(titles).toContainEqual('React patterns')
+})
 
+test('a valid blog can be added', async () => {
+  const newBlog = {
+    title: 'Nothing functions',
+    author: 'Aare',
+    url: 'http://localhost:3003/blogilista',
+    likes: 2,
+  }
+  await api
+    .post('/api/blogs')
+    .send(newBlog)
+    .expect(201)
+    .expect('Content-Type', /application\/json/)
+
+  const response = await api.get('/api/blogs')
+  const titles = response.body.map(r => r.title)
+  expect(response.body).toHaveLength(initialBlogs.length + 1)
+  expect(titles).toContain('Nothing functions')
+})
+/*
+test('blog without title is not added', async () => {
+  const newBlog = {
+    title: '',
+    author: 'Aare',
+    url: 'http://localhost:3003/blogilista',
+    likes: 2,
+  }
+  await api
+    .post('/api/blogs')
+    .send(newBlog)
+    .expect(400)
+
+  const response = await api.get('/api/blogs')
+  expect(response.body).toHaveLength(initialBlogs.length)
+})
+*/
 afterAll(() => {
   mongoose.connection.close()
 })
