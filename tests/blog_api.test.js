@@ -88,6 +88,25 @@ test('a valid blog can be added', async () => {
   expect(response.body).toHaveLength(initialBlogs.length + 1)
   expect(titles).toContain('Nothing functions')
 })
+
+test('added blog has likes value is 0', async () => {
+  const newBlog = {
+    title: 'Nobody likes this blog',
+    author: 'Aare',
+    url: 'http://localhost:3003/blogilista',
+    // likes ei saa arvo
+  }
+  await api
+    .post('/api/blogs')
+    .send(newBlog)
+    .expect(201)
+    .expect('Content-Type', /application\/json/)
+
+  const response = await api.get('/api/blogs')
+  const all_likes = response.body.map(r => r.likes)
+  expect(all_likes[all_likes.length-1]).toBe(0)
+})
+
 /*
 test('blog without title is not added', async () => {
   const newBlog = {
