@@ -10,6 +10,13 @@ usersRouter.get('/', async (request, response) => {
 usersRouter.post('/', async (request, response) => {
   const { username, name, password } = request.body
   console.log('user post:', username, name, password)
+  console.log('user post pituudet:', username.length, password.length)
+  if (username === undefined || username === '' || username.length < 3) {
+    return response.status(400).json({ error: 'username not valid' })
+  }
+  if (password === undefined || password === '' || password.length < 3) {
+    return response.status(400).json({ error: 'password not valid' })
+  }
 
   const existingUser = await User.findOne({ username })
   if (existingUser) {
