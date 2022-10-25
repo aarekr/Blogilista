@@ -49,6 +49,7 @@ describe('when there are initially some blogs saved', () => {
         author: 'Aare',
         url: 'http://localhost:3003/blogilista',
         likes: 2,
+        //userId: '63578f9eaa7b8e74ef445af0',
       }
       await api
         .post('/api/blogs')
@@ -68,6 +69,7 @@ describe('when there are initially some blogs saved', () => {
         author: 'Aare',
         url: 'http://localhost:3003/blogilista',
         // likes ei saa arvoa
+        //userId: '63578f9eaa7b8e74ef445af0',
       }
       await api
         .post('/api/blogs')
