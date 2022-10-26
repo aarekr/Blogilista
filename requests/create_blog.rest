@@ -2,6 +2,7 @@ POST http://localhost:3003/api/blogs
 Content-Type: application/json
 
 {
-  "title": "VS Coden kautta syötetty",
-  "author": "Iiro"
+  "title": "Kirjautuneen blogikirjoitus",
+  "author": "Iiro",
+  "url": "http://iironblogi"
 }
