@@ -51,6 +51,7 @@ describe('favoriteBlog test', () => {
       __v: 0
     }
   ]
+
   test('favorite blog on the list', () => {
     const result = listHelper.favoriteBlog(blogs)
     const oikea_vastaus = {
@@ -60,13 +61,22 @@ describe('favoriteBlog test', () => {
     }
     expect(result).toEqual(oikea_vastaus)
   })
+
   test('writer with most blogs', () => {
     const result = listHelper.mostBlogs(blogs)
     const oikea_vastaus = {
       author: 'Robert C. Martin',
       blogs: 3
     }
-    console.log('result:', result)
+    expect(result).toEqual(oikea_vastaus)
+  })
+
+  test('writer with most likes', () => {
+    const result = listHelper.mostLikes(blogs)
+    const oikea_vastaus = {
+      author: 'Edsger W. Dijkstra',
+      likes: 17
+    }
     expect(result).toEqual(oikea_vastaus)
   })
 })

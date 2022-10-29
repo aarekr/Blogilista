@@ -61,7 +61,25 @@ const mostBlogs = (blogs) => {
   })
   return eniten_blogeja
 }
+const mostLikes = (blogs) => {
+  let dict = {}
+  let eniten_likes = {
+    author: 'xxx',
+    likes: 0
+  }
+  blogs.map(item => {
+    if (!(item['author'] in dict)) {
+      dict[item['author']] = Number(0)
+    }
+    dict[item['author']] = dict[item['author']] + Number(item['likes'])
+    if (dict[item['author']] > eniten_likes.likes) {
+      eniten_likes.author = item['author']
+      eniten_likes.likes = dict[item['author']]
+    }
+  })
+  return eniten_likes
+}
 
 module.exports = {
-  dummy, totalLikes, firstBlogLikes, allLikesPositive, favoriteBlog, mostBlogs
+  dummy, totalLikes, firstBlogLikes, allLikesPositive, favoriteBlog, mostBlogs, mostLikes
 }
