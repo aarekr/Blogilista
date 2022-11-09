@@ -20,9 +20,9 @@ describe('when there are initially some blogs saved', () => {
       .expect('Content-Type', /application\/json/)
   })
 
-  test('there are three blogs', async () => {
+  test('there are six blogs', async () => {
     const response = await api.get('/api/blogs')
-    expect(response.body).toHaveLength(3)
+    expect(response.body).toHaveLength(6)
   })
 
   test('all blogs are returned', async () => {
@@ -42,15 +42,33 @@ describe('when there are initially some blogs saved', () => {
     expect(titles).toContain('React patterns')
   })
 
+  describe('viewing a specific blog', () => {
+    test('succeeds with a valid id', async () => {
+      const response = await api.get('/api/blogs')
+      const ids = response.body.map(r => r.id)
+      expect(ids).toContain('5a422b891b54a676234d17fa')
+    })
+
+    test('fails with an invalid id', async () => {
+      const response = await api.get('/api/blogs')
+      const ids = response.body.map(r => r.id)
+      expect(ids).not.toContain('5a422b891b54a676234d1123')
+    })
+  })
+
   describe('addition of a new blog', () => {
     test('a valid blog can be added', async () => {
       const newBlog = {
-        title: 'Nothing functions',
-        author: 'Aare',
+        title: 'Blogin lisääminen tokenilla',
+        author: 'Tauno',
         url: 'http://localhost:3003/blogilista',
         likes: 2,
-        //userId: '63578f9eaa7b8e74ef445af0',
+        password: 'tauno',
+        username: 'taunotestienv',
+        name: 'Tauno TestiEnv',
+        authorization: 'bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRhdW5vdGVzdGllbnYiLCJpZCI6IjYzNmI1ODhjZTA4NzBhNTA1YjdlM2Y3NiIsImlhdCI6MTY2Nzk3OTU0MywiZXhwIjoxNjY4MDE1NTQzfQ.Xt2G7OhkWn0B5y2q4Qa6c1c6khcsU-iBvBK_H6eItvE'
       }
+      console.log('add testin newBlog:', newBlog)
       await api
         .post('/api/blogs')
         .send(newBlog)
